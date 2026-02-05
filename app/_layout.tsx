@@ -3,6 +3,17 @@ import { Drawer } from "expo-router/drawer";
 export default function Layout() {
   return (
     <Drawer>
+      <Drawer initialRouteName="add-order" />
+
+      {/* HIDE ROOT INDEX ROUTE */}
+      <Drawer.Screen
+        name="index"
+        options={{
+          drawerItemStyle: { display: "none" },
+          title: "",
+        }}
+      />
+
       <Drawer.Screen
         name="add-order"
         options={{
