@@ -3,18 +3,17 @@ import { DrawerToggleButton } from "@react-navigation/drawer";
 
 export default function Layout() {
   return (
-    <Drawer>
-      <Drawer
-        initialRouteName="add-order"
-        screenOptions={{
-          headerShown: true, // 👈 REQUIRED for web
-          headerTitle: "RR Dresses", // 👈 forces header height
-          headerLeft: () => <DrawerToggleButton />,
-          headerStyle: {
-            height: 56, // 👈 forces visible header
-          },
-        }}
-      />
+    <Drawer
+      initialRouteName="add-order"
+      screenOptions={{
+        headerShown: true, // 👈 REQUIRED for web
+        headerTitle: "RR Dresses", // 👈 forces header height
+        headerLeft: () => <DrawerToggleButton />,
+        headerStyle: {
+          height: 56, // 👈 forces visible header
+        },
+      }}
+    >
       {/* HIDE ROOT INDEX ROUTE */}
       <Drawer.Screen
         name="index"
