@@ -7,7 +7,12 @@ export default function Layout() {
 
       <Drawer
         screenOptions={{
+          headerShown: true, // 👈 REQUIRED for web
+          headerTitle: "RR Dresses", // 👈 forces header height
           headerLeft: () => <DrawerToggleButton />,
+          headerStyle: {
+            height: 56, // 👈 forces visible header
+          },
         }}
       />
       {/* HIDE ROOT INDEX ROUTE */}
