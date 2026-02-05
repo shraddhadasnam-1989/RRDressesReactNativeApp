@@ -1,12 +1,12 @@
 import { Drawer } from "expo-router/drawer";
+import { Text } from "react-native";
 
 export default function Layout() {
   return (
     <Drawer
       initialRouteName="add-order"
       screenOptions={{
-        headerShown: true,
-        headerTitle: "RR Dresses",
+        headerShown: false,
         drawerType: "front", // 👈 important for web
       }}
     >
