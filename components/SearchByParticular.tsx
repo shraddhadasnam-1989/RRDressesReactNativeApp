@@ -481,10 +481,11 @@ export default function SearchByParticular() {
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#999",
     padding: 10,
     marginTop: 8,
     borderRadius: 6,
+    color: "#000",
   },
   btn: {
     marginTop: 12,

@@ -13,7 +13,13 @@ export default function ListOrdersByOrderId() {
         value={id}
         onChangeText={setId}
         keyboardType="numeric"
-        style={{ borderWidth: 1, padding: 8, marginBottom: 10 }}
+        style={{
+          borderWidth: 1,
+          padding: 8,
+          marginBottom: 10,
+          color: "#000",
+          borderColor: "#999",
+        }}
       />
 
       <Button title="Search" onPress={() => setSelectedId(id)} />
