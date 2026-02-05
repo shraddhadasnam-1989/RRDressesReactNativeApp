@@ -4,9 +4,8 @@ import { DrawerToggleButton } from "@react-navigation/drawer";
 export default function Layout() {
   return (
     <Drawer>
-      <Drawer initialRouteName="add-order" />
-
       <Drawer
+        initialRouteName="add-order"
         screenOptions={{
           headerShown: true, // 👈 REQUIRED for web
           headerTitle: "RR Dresses", // 👈 forces header height
