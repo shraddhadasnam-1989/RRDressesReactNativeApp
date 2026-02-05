@@ -5,6 +5,11 @@ export default function Layout() {
     <Drawer>
       <Drawer initialRouteName="add-order" />
 
+      <Drawer
+        screenOptions={{
+          headerLeft: () => <DrawerToggleButton />,
+        }}
+      />
       {/* HIDE ROOT INDEX ROUTE */}
       <Drawer.Screen
         name="index"
