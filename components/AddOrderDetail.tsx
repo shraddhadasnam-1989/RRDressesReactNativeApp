@@ -100,7 +100,7 @@ export default function OrderFormInlineEditable() {
         } else {
           return { ...r, sizes: { ...r.sizes, [field]: Number(value) || "" } };
         }
-      })
+      }),
     );
   }
 
@@ -157,7 +157,7 @@ export default function OrderFormInlineEditable() {
       const sizesObj = row.sizes || {};
       const totalQty = Object.values(sizesObj).reduce(
         (a, b) => a + (Number(b) || 0),
-        0
+        0,
       );
       const amountVal = (row.rate || 0) * totalQty;
       return (
@@ -178,10 +178,10 @@ export default function OrderFormInlineEditable() {
             field === "particular"
               ? row.particular
               : field === "rate"
-              ? row.rate
-              : field === "instructions"
-              ? row.instructions || ""
-              : row.sizes[field] || ""
+                ? row.rate
+                : field === "instructions"
+                  ? row.instructions || ""
+                  : row.sizes[field] || "",
           )}
           onChangeText={(v) => updateCell(row.id, field, v)}
           keyboardType={
@@ -208,14 +208,14 @@ export default function OrderFormInlineEditable() {
           {field === "particular"
             ? row.particular || "—"
             : field === "rate"
-            ? row.rate
-              ? `${row.rate}`
-              : "—"
-            : field === "instructions"
-            ? row.instructions || ""
-            : row.sizes[field]
-            ? row.sizes[field]
-            : ""}
+              ? row.rate
+                ? `${row.rate}`
+                : "—"
+              : field === "instructions"
+                ? row.instructions || ""
+                : row.sizes[field]
+                  ? row.sizes[field]
+                  : ""}
         </Text>
       </TouchableOpacity>
     );
@@ -246,11 +246,7 @@ export default function OrderFormInlineEditable() {
 
   function handleSave() {
     // Validation for required fields
-    const requiredFields = [
-      { key: "partyName", label: "Party Name" },
-      { key: "address", label: "Address" },
-      { key: "agentName", label: "Agent Name" },
-    ];
+    const requiredFields = [{ key: "partyName", label: "Party Name" }];
 
     let missing = [];
     for (let field of requiredFields) {
@@ -259,14 +255,10 @@ export default function OrderFormInlineEditable() {
       }
     }
 
-    if (!form.phones.some((p) => p && p.trim() !== "")) {
-      missing.push("Phone No.");
-    }
-
     if (missing.length > 0) {
       Alert.alert(
         "Required Fields Missing",
-        `Please fill the following fields: ${missing.join(", ")}`
+        `Please fill the following fields: ${missing.join(", ")}`,
       );
       return;
     }
@@ -277,7 +269,7 @@ export default function OrderFormInlineEditable() {
       if (phone && phone.trim() !== "" && !/^\d{10}$/.test(phone.trim())) {
         Alert.alert(
           "Invalid Phone Number",
-          `Phone ${i + 1} must be exactly 10 digits (numbers only).`
+          `Phone ${i + 1} must be exactly 10 digits (numbers only).`,
         );
         return;
       }
@@ -287,7 +279,7 @@ export default function OrderFormInlineEditable() {
     if (rows.length === 0) {
       Alert.alert(
         "No Items",
-        "Please add at least one item with particular, rate, and sizes."
+        "Please add at least one item with particular, rate, and sizes.",
       );
       return;
     }
@@ -295,14 +287,14 @@ export default function OrderFormInlineEditable() {
       if (!row.particular || row.particular.trim() === "") return false;
       if (!row.rate || row.rate <= 0) return false;
       const hasSize = Object.values(row.sizes || {}).some(
-        (qty) => Number(qty) > 0
+        (qty) => Number(qty) > 0,
       );
       return hasSize;
     });
     if (!hasValidItem) {
       Alert.alert(
         "Invalid Items",
-        "At least one item must have particular, rate, and at least one size quantity."
+        "At least one item must have particular, rate, and at least one size quantity.",
       );
       return;
     }
@@ -371,7 +363,7 @@ export default function OrderFormInlineEditable() {
         Alert.alert(
           "Success",
           `${orderData.partyName} ${res.data.orderNo} has been saved successfully!`,
-          [{ text: "OK" }]
+          [{ text: "OK" }],
         );
         const msg = `${orderData.partyName} ${res.data.orderNo} is Saved`;
         setToastMsg(msg);
@@ -405,27 +397,21 @@ export default function OrderFormInlineEditable() {
   }
 
   const isFormValid = () => {
+    // Party Name is required
     if (!form.partyName || form.partyName.trim() === "") return false;
-    if (!form.address || form.address.trim() === "") return false;
-    if (!form.agentName || form.agentName.trim() === "") return false;
-    if (!form.phones.some((p) => p && p.trim() !== "")) return false;
-    // Validate phone numbers: each filled phone must be 10 digits
-    for (let phone of form.phones) {
-      if (phone && phone.trim() !== "" && !/^\d{10}$/.test(phone.trim())) {
-        return false;
-      }
-    }
-    // Check if there is at least one item with particular, rate, and at least one size
+
+    // At least one item with particular and rate is required
     if (rows.length === 0) return false;
     const hasValidItem = rows.some((row) => {
-      if (!row.particular || row.particular.trim() === "") return false;
-      if (!row.rate || row.rate <= 0) return false;
-      const hasSize = Object.values(row.sizes || {}).some(
-        (qty) => Number(qty) > 0
+      return (
+        row.particular &&
+        row.particular.trim() !== "" &&
+        row.rate &&
+        row.rate > 0
       );
-      return hasSize;
     });
     if (!hasValidItem) return false;
+
     return true;
   };
 
